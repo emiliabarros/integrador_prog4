@@ -1,15 +1,8 @@
 import api from "./api";
 
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface RegisterRequest {
-  nombre: string;
-  email: string;
-  password: string;
-}
+export interface LoginRequest { email: string; password: string; }
+export interface RegisterRequest { nombre: string; email: string; password: string; }
+export interface Usuario { id: number; nombre: string; email: string; rol: string; }
 
 export const login = async (data: LoginRequest) => {
   const res = await api.post("/auth/login", data);
@@ -22,7 +15,7 @@ export const register = async (data: RegisterRequest) => {
   return res.data;
 };
 
-export const getMe = async () => {
+export const getMe = async (): Promise<Usuario> => {
   const res = await api.get("/auth/me");
   return res.data;
 };

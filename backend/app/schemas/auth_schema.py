@@ -1,10 +1,12 @@
-from pydantic import BaseModel, EmailStr
+from datetime import datetime
+from typing import Optional
+from pydantic import BaseModel, EmailStr, Field
 
 
 class RegisterRequest(BaseModel):
-    nombre: str
+    nombre: str = Field(..., min_length=2, max_length=100)
     email: EmailStr
-    password: str
+    password: str = Field(..., min_length=4)
 
 
 class LoginRequest(BaseModel):
@@ -21,3 +23,7 @@ class UsuarioResponse(BaseModel):
     id: int
     nombre: str
     email: str
+    rol: str
+    created_at: Optional[datetime] = None
+
+    model_config = {"from_attributes": True}

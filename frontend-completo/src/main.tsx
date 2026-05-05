@@ -2,15 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { AuthProvider } from "./context/AuthContext";
-import { InsumosProvider } from "./context/InsumosContext";
+import { IngredientesProvider } from "./context/IngredientesContext";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthProvider>
-      <InsumosProvider>
+      <IngredientesProvider>
         <App />
-      </InsumosProvider>
+      </IngredientesProvider>
     </AuthProvider>
   </React.StrictMode>
 );

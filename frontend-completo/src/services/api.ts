@@ -5,16 +5,12 @@ const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-// Inyecta el token automáticamente en cada request
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+  if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
-// Si el token expira, redirige al login
 api.interceptors.response.use(
   (res) => res,
   (error) => {

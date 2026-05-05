@@ -5,14 +5,13 @@ from sqlalchemy.sql import func
 from sqlmodel import Field, SQLModel
 
 
-class Usuario(SQLModel, table=True):
-    __tablename__ = "usuarios"
+class Ingrediente(SQLModel, table=True):
+    __tablename__ = "ingredientes"
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    nombre: str = Field(max_length=100)
-    email: str = Field(unique=True, index=True, max_length=255)
-    password_hash: str
-    rol: str = Field(default="cliente", max_length=20)  # cliente, gestor, admin, repartidor
+    nombre: str = Field(max_length=100, unique=True)
+    descripcion: Optional[str] = Field(default=None)
+    es_alergeno: bool = Field(default=False)
 
     created_at: Optional[datetime] = Field(
         default=None,
@@ -26,4 +25,8 @@ class Usuario(SQLModel, table=True):
             server_default=func.now(),
             onupdate=func.now(),
         ),
+    )
+    deleted_at: Optional[datetime] = Field(
+        default=None,
+        sa_column=Column(DateTime(timezone=True), nullable=True),
     )
